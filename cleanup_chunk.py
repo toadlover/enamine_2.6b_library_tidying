@@ -35,11 +35,7 @@ os.chdir("/pi/summer.thyme-umw/ari_enamine_conformer_library_tidying/conformer_l
 #save the working chunk location
 working_chunk_location = os.getcwd()
 
-#begin writing a chunk blacklist file
-blacklist_file = open("blacklist_file.csv", "w")
 
-#write a header
-blacklist_file.write("ligand,chunk,subchunk,splitfile,reasons,SMILES\n")
 
 #declare patterns of interest to filter out as smarts
 patterns = {
@@ -48,8 +44,7 @@ patterns = {
     "heavy_halogen": Chem.MolFromSmarts("[Br,I]"),
 }
 
-#create a list to hold the name of ligands that are added to the blacklist
-blacklist_ligand_names = []
+
 
 #iterate over every subchunk folder in the directory to perform the operations on
 for r,d,f in os.walk(working_chunk_location):
@@ -57,6 +52,15 @@ for r,d,f in os.walk(working_chunk_location):
 		if r == working_chunk_location:
 			#work on directory if it is located at the top of the chunk directory
 			print("Processing: " + str(dire))
+
+			#begin writing a chunk blacklist file
+			blacklist_file = open("blacklist_file.csv", "w")
+
+			#write a header
+			blacklist_file.write("ligand,chunk,subchunk,splitfile,reasons,SMILES\n")
+
+			#create a list to hold the name of ligands that are added to the blacklist
+			blacklist_ligand_names = []
 
 			#move to the directory
 			os.chdir(dire)
