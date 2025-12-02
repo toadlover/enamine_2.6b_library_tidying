@@ -47,3 +47,34 @@ for r,d,f in os.walk(working_chunk_location):
 		if r == working_chunk_location:
 			#work on directory if it is located at the top of the chunk directory
 			print("Processing: " + str(dire))
+
+			#move to the directory
+			os.chdir(dire)
+
+			#delete the NN files and data csvs that are not needed for the working library
+			os.system("rm *NN*.tar.gz *.csv")
+
+			#iterate over each ligand in each sdf file to determine which ligands to cut and add to the blacklist
+			for r2,d2,f2 in os.walk(r + "/" + dire):
+				for file in f2:
+					if file.endswith(".sdf.tar.gz"):
+						#unzip the file
+						os.system("tar -xzf " + file)
+
+						#read the file
+						supplier = Chem.SDMolSupplier(file.split(".tar.gz")[0], removeHs=False)
+
+						#iterate over the file
+						for mol in supplier:
+						    if mol is None:
+						        continue  # skip invalid molecules
+						    
+						    mol_name = mol.GetProp("_Name") if mol.HasProp("_Name") else "Unknown"
+
+						    #test print of name
+						    print("Ligand: " + mol_name + " " + Chem.MolToSmiles(mol))
+
+
+
+			#return to the top at end
+			os.chdir(working_chunk_location)
