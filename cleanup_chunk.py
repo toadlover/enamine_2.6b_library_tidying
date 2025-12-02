@@ -117,8 +117,14 @@ for r,d,f in os.walk(working_chunk_location):
 				for file in f2:
 					if file.startswith("condensed_params_and_db_") and file.endswith(".tar.gz"):
 
+						print(file)
+
 						#decompress the file
 						os.system("tar -xzf " + file)
+
+						#delete the split_confs file, we do not need an extra
+						os.system("rm " + r2 + "/" + file.split(".tar.gz")[0] + "/split_new_named*sdf")
+
 
 						#derive the subchunk based on the file
 						subchunk = file.split(".tar")[0].split("_")[len(file.split(".tar")[0].split("_")) - 1]
@@ -134,6 +140,16 @@ for r,d,f in os.walk(working_chunk_location):
 							#if the ligand is not in the blacklist ligand names, write it to the ligand name list and do not attempt to delete anything
 							if mylig not in blacklist_ligand_names:
 								write_lig_name_list.write(line)
+							else:
+								#delete the shorthand params file
+								os.system("rm " + r2 + "/" + file.split(".tar.gz")[0] + "/condensed_params_and_db_" + subchunk + "/single_conf_params/" + mylig + "_*txt")
+
+						#overwrite the new ligand name list with the old
+						os.system("mv " + r2 + "/" + file.split(".tar.gz")[0] + "/temp_" + dire + "_" + subchunk + "_lig_name_list.txt " + r2 + "/" + file.split(".tar.gz")[0] + "/" + dire + "_" + subchunk + "_lig_name_list.txt")
+
+						#condense the new trimmed directory
+						#enter the location for ease in condensing
+						os.system("tar -czf " + file + " " + file.split(".tar.gz")[0])
 
 
 
