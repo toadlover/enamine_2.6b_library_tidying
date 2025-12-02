@@ -41,6 +41,16 @@ blacklist_file = open("blacklist_file.csv", "w")
 #write a header
 blacklist_file.write("ligand,chunk,subchunk,splitfile,reasons,SMILES\n")
 
+#declare patterns of interest to filter out as smarts
+patterns = {
+    "ester": Chem.MolFromSmarts("C(=O)O[#6]"),
+    "nitrile": Chem.MolFromSmarts("C#N"),
+    "heavy_halogen": Chem.MolFromSmarts("[Br,I]"),
+}
+
+#create a list to hold the name of ligands that are added to the blacklist
+blacklist_ligand_names = []
+
 #iterate over every subchunk folder in the directory to perform the operations on
 for r,d,f in os.walk(working_chunk_location):
 	for dire in d:
@@ -73,6 +83,36 @@ for r,d,f in os.walk(working_chunk_location):
 
 						    #test print of name
 						    print("Ligand: " + mol_name + " " + Chem.MolToSmiles(mol))
+
+						    #check if the molecule has any blacklist fragments
+						    #if so, add the ligand to the blacklist and why
+
+						    #create a blacklist string that notes all labels that the ligand may have, starting with a blank string
+						    #make the string
+						    blacklist_string = ""
+
+						    for label, smarts in patterns.items():
+						        contains_fragment = mol.HasSubstructMatch(smarts)
+
+						        #if this has the fragment, add the type to the blacklist string
+						        if contains_fragment:
+						        	#add to the blacklist string based on if the string was previously empty of not to note multiple fragments if possible
+						        	if blacklist_string == "":
+						        		blacklist_string = label
+						        	else:
+						        		#delimit multiple entries with a semicolor
+						        		blacklist_string = blacklist_string + ";" + label
+
+						    #if we are dealing with a blacklisted ligand, add it to the blacklist and to the file
+						    if blacklist_string != "":
+						    	blacklist_ligand_names.append(mol_name)
+						    	#blacklist_file.write("ligand,chunk,subchunk,splitfile,reasons,SMILES\n")
+						    	blacklist_file.write(mol_name + "," + working_chunk + "," + dire + "," + file + "," + blacklist_string + "," + Chem.MolToSmiles(mol) + "\n")
+
+
+
+
+
 
 
 
