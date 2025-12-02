@@ -109,6 +109,32 @@ for r,d,f in os.walk(working_chunk_location):
 						    	#blacklist_file.write("ligand,chunk,subchunk,splitfile,reasons,SMILES\n")
 						    	blacklist_file.write(mol_name + "," + working_chunk + "," + dire + "," + file + "," + blacklist_string + "," + Chem.MolToSmiles(mol) + "\n")
 
+						#delete the decompressed file
+						os.system("rm " + file.split(".tar.gz")[0])
+
+			#iterate over all condensed_params_and_db_*.tar.gz files to remove blacklisted ligands from the library
+			for r2,d2,f2 in os.walk(r + "/" + dire):
+				for file in f2:
+					if file.startswith("condensed_params_and_db_") and file.endswith(".tar.gz"):
+
+						#decompress the file
+						os.system("tar -xzf " + file)
+
+						#derive the subchunk based on the file
+						subchunk = file.split(".tar")[0].split("_")[len(file.split(".tar")[0].split("_")) - 1]
+
+						#open a write stream of the *_lig_name_list.txt file to write all ligand conformers that should be retained (i.e. remove blacklist)
+						write_lig_name_list = open(r2 + "/" + file.strip(".tar.gz")[0] + "/temp_" + dire + "_" + subchunk + "lig_name_list.txt", "w")
+						read_lig_name_list = open(r2 + "/" + file.strip(".tar.gz")[0] + "/" + dire + "_" + subchunk + "lig_name_list.txt", "r")
+
+						#read the *_lig_name_list.txt file and determine which ligands need to be removed
+						for line in read_lig_name_list.readlines():
+							mylig = line.split("_")[0]
+
+							#if the ligand is not in the blacklist ligand names, write it to the ligand name list and do not attempt to delete anything
+							if mylig not in blacklist_ligand_names:
+								write_lig_name_list.write(line)
+
 
 
 
