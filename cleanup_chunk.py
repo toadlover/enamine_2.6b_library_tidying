@@ -142,7 +142,7 @@ for r,d,f in os.walk(working_chunk_location):
 								write_lig_name_list.write(line)
 							else:
 								#delete the shorthand params file
-								os.system("rm " + r2 + "/" + file.split(".tar.gz")[0] + "/single_conf_params/" + mylig + "_*txt")
+								os.system("rm -f " + r2 + "/" + file.split(".tar.gz")[0] + "/single_conf_params/" + mylig + "_*txt")
 
 						#overwrite the new ligand name list with the old
 						os.system("mv " + r2 + "/" + file.split(".tar.gz")[0] + "/temp_" + dire + "_" + subchunk + "_lig_name_list.txt " + r2 + "/" + file.split(".tar.gz")[0] + "/" + dire + "_" + subchunk + "_lig_name_list.txt")
