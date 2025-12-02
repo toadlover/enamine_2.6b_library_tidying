@@ -161,7 +161,7 @@ for r,d,f in os.walk(working_chunk_location):
 						#delete the made folder
 						#os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") &")
 						os.system("rm -drf " + r2 + "/" + file.split(".tar.gz")[0])
-						os.system("rm -drf " + r2 + "/" + file.split(".tar.gz")[0])
+						os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") &")
 
 
 
