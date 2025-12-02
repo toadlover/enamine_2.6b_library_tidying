@@ -57,7 +57,7 @@ for r,d,f in os.walk(working_chunk_location):
 			blacklist_file = open("blacklist_file.csv", "w")
 
 			#write a header
-			blacklist_file.write("ligand,chunk,subchunk,splitfile,reasons,SMILES\n")
+			blacklist_file.write("ligand,superchunk,chunk,subchunk_splitfile,reasons,SMILES\n")
 
 			#create a list to hold the name of ligands that are added to the blacklist
 			blacklist_ligand_names = []
@@ -159,7 +159,9 @@ for r,d,f in os.walk(working_chunk_location):
 						#os.system("sleep 5")
 
 						#delete the made folder
-						os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") &")
+						#os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") &")
+						os.system("rm -drf " + r2 + "/" + file.split(".tar.gz")[0])
+						os.system("rm -drf " + r2 + "/" + file.split(".tar.gz")[0])
 
 
 
