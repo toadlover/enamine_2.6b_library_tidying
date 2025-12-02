@@ -124,8 +124,8 @@ for r,d,f in os.walk(working_chunk_location):
 						subchunk = file.split(".tar")[0].split("_")[len(file.split(".tar")[0].split("_")) - 1]
 
 						#open a write stream of the *_lig_name_list.txt file to write all ligand conformers that should be retained (i.e. remove blacklist)
-						write_lig_name_list = open(r2 + "/" + file.split(".tar.gz")[0] + "/temp_" + dire + "_" + subchunk + "lig_name_list.txt", "w")
-						read_lig_name_list = open(r2 + "/" + file.split(".tar.gz")[0] + "/" + dire + "_" + subchunk + "lig_name_list.txt", "r")
+						write_lig_name_list = open(r2 + "/" + file.split(".tar.gz")[0] + "/temp_" + dire + "_" + subchunk + "_lig_name_list.txt", "w")
+						read_lig_name_list = open(r2 + "/" + file.split(".tar.gz")[0] + "/" + dire + "_" + subchunk + "_lig_name_list.txt", "r")
 
 						#read the *_lig_name_list.txt file and determine which ligands need to be removed
 						for line in read_lig_name_list.readlines():
