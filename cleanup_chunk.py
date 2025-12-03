@@ -75,6 +75,7 @@ for r,d,f in os.walk(working_chunk_location):
 			#move to the directory
 			os.chdir(dire)
 
+			print("working in: " + str(os.getcwd()))
 
 			#begin writing a chunk blacklist file
 			blacklist_file = open("blacklist_file.csv", "w")
