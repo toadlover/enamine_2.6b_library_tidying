@@ -39,10 +39,29 @@ working_chunk_location = os.getcwd()
 
 #declare patterns of interest to filter out as smarts
 patterns = {
-    "ester": Chem.MolFromSmarts("C(=O)O[#6]"),
+    #not doign blanket ester filter
+    #"ester": Chem.MolFromSmarts("C(=O)O[#6]"),
+    
     "nitrile": Chem.MolFromSmarts("C#N"),
     "heavy_halogen": Chem.MolFromSmarts("[Br,I]"),
+
+
+    #ester types that we want to remove as they are generally unstable and liable to fracture and form unwanted byproducts
+    "simple_alkyl_ester": Chem.MolFromSmarts("[CX3](=O)[OX2][CH3,CH2]"),
+    "benzylic_ester": Chem.MolFromSmarts("C(=O)O[CH2][c]"),
+    "hetero_activated_ester": Chem.MolFromSmarts("C(=O)O[CH2][N,O,S]"),
+    "nitrile_adjacent_ester": Chem.MolFromSmarts("C(=O)O[CH2]C#N"),
+    "nitro_adjacent_ester": Chem.MolFromSmarts("C(=O)O[CH2][N+](=O)[O-]"),
+    "heterocycle_ester": Chem.MolFromSmarts("[n,o,s;H0]C(=O)O"),
+    "acylal": Chem.MolFromSmarts("C(=O)(O)O"),
 }
+
+#ester types that we effectively want to keep
+#generally listing the types, but not planning to implement a check for these
+#"lactone": Chem.MolFromSmarts("O=C1OCC1")
+#"lactone_general": Chem.MolFromSmarts("[$([CX3](=O)O),$([CX3](=O)[O-])]=O;R")
+#"aryl_ester": Chem.MolFromSmarts("c-O-C(=O)")
+#"tert_ester": Chem.MolFromSmarts("C(=O)O[C;X4]([C])[C]")
 
 
 
@@ -53,6 +72,10 @@ for r,d,f in os.walk(working_chunk_location):
 			#work on directory if it is located at the top of the chunk directory
 			print("Processing: " + str(dire))
 
+			#move to the directory
+			os.chdir(dire)
+
+
 			#begin writing a chunk blacklist file
 			blacklist_file = open("blacklist_file.csv", "w")
 
@@ -61,9 +84,6 @@ for r,d,f in os.walk(working_chunk_location):
 
 			#create a list to hold the name of ligands that are added to the blacklist
 			blacklist_ligand_names = []
-
-			#move to the directory
-			os.chdir(dire)
 
 			#delete the NN files and data csvs that are not needed for the working library
 			os.system("rm *NN*.tar.gz *.csv")
