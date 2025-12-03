@@ -77,6 +77,9 @@ for r,d,f in os.walk(working_chunk_location):
 
 			print("working in: " + str(os.getcwd()))
 
+			#delete the NN files and data csvs that are not needed for the working library
+			os.system("rm *NN*.tar.gz *.csv")
+
 			#begin writing a chunk blacklist file
 			blacklist_file = open("blacklist_file.csv", "w")
 
@@ -86,8 +89,7 @@ for r,d,f in os.walk(working_chunk_location):
 			#create a list to hold the name of ligands that are added to the blacklist
 			blacklist_ligand_names = []
 
-			#delete the NN files and data csvs that are not needed for the working library
-			os.system("rm *NN*.tar.gz *.csv")
+
 
 			#iterate over each ligand in each sdf file to determine which ligands to cut and add to the blacklist
 			for r2,d2,f2 in os.walk(r + "/" + dire):
