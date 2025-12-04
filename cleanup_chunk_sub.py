@@ -77,7 +77,7 @@ blacklist_file = open("blacklist_file.csv", "w")
 blacklist_file.write("ligand,superchunk,chunk,subchunk_splitfile,reasons,SMILES\n")
 
 #create a list to hold the name of ligands that are added to the blacklist
-blacklist_ligand_names = []
+blacklist_ligand_names = {}
 
 
 
@@ -87,6 +87,11 @@ for r2,d2,f2 in os.walk(os.getcwd()):
 		if file.endswith(".sdf.tar.gz"):
 			#unzip the file
 			os.system("tar -xzf " + file)
+
+			#derive the subchunk based on the file
+			subchunk = file.split(".tar")[0].split("_")[len(file.split(".tar")[0].split("_")) - 1]
+
+			blacklist_ligand_names[subchunk] = []
 
 			#read the file
 			supplier = Chem.SDMolSupplier(file.split(".tar.gz")[0], removeHs=False)
@@ -122,7 +127,7 @@ for r2,d2,f2 in os.walk(os.getcwd()):
 
 			    #if we are dealing with a blacklisted ligand, add it to the blacklist and to the file
 			    if blacklist_string != "":
-			    	blacklist_ligand_names.append(mol_name)
+			    	blacklist_ligand_names[subchunk].append(mol_name)
 			    	#blacklist_file.write("ligand,chunk,subchunk,splitfile,reasons,SMILES\n")
 			    	blacklist_file.write(mol_name + "," + working_chunk + "," + dire + "," + file + "," + blacklist_string + "," + Chem.MolToSmiles(mol) + "\n")
 
@@ -155,7 +160,7 @@ for r2,d2,f2 in os.walk(os.getcwd()):
 				mylig = line.split("_")[0]
 
 				#if the ligand is not in the blacklist ligand names, write it to the ligand name list and do not attempt to delete anything
-				if mylig not in blacklist_ligand_names:
+				if mylig not in blacklist_ligand_names[subchunk]:
 					write_lig_name_list.write(line)
 				else:
 					#delete the shorthand params file
@@ -194,8 +199,8 @@ for i in range(0,10):
 
 		os.system("rm -drf " + cur_folder)
 
-		#sleep 20 seconds before trying again or moving on
-		os.system("sleep 20")
+		#sleep 2 seconds before trying again or moving on
+		os.system("sleep 2")
 
 
 
