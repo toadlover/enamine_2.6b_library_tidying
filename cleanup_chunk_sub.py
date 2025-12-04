@@ -175,9 +175,9 @@ for r2,d2,f2 in os.walk(os.getcwd()):
 			#os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") &")
 			os.system("rm -drf " + r2 + "/" + file.split(".tar.gz")[0])
 			os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") ")
-			os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") ")
-			os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") ")
-			os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") ")
+			os.system("(sleep 300 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") & ")
+			os.system("(sleep 600 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") & ")
+			#os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") ")
 
 
 
