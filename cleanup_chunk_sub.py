@@ -174,9 +174,9 @@ for r2,d2,f2 in os.walk(os.getcwd()):
 			#delete the made folder
 			#os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") &")
 			os.system("rm -drf " + r2 + "/" + file.split(".tar.gz")[0])
-			os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") ")
+			#os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") ")
 			#try to kill in the background 5 minutes later, and if that fails, we will kill it in the end step
-			os.system("(sleep 300 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") & ")
+			#os.system("(sleep 300 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") & ")
 			#os.system("(sleep 600 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") & ")
 			#os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") ")
 
