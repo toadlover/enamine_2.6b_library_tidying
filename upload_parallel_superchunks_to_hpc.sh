@@ -12,7 +12,7 @@ PARALLEL=$3
 
 # ---- UPDATE THESE ----
 KEY="/store/projects/ari/id_rsa"
-DEST="ari.ginsparg-umw@hpc.umassmed.edu:/pi/summer.thyme-umw/ari_enamine_conformer_library_tidying/conformer_library_space"
+DEST="ari.ginsparg-umw@hpc.umassmed.edu:/pi/summer.thyme-umw/enamine-REAL-2.6billion"
 # -----------------------
 
 if [[ -z "$START" || -z "$END" || -z "$PARALLEL" ]]; then
