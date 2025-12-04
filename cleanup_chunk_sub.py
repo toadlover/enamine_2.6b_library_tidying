@@ -175,11 +175,23 @@ for r2,d2,f2 in os.walk(os.getcwd()):
 			#os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") &")
 			os.system("rm -drf " + r2 + "/" + file.split(".tar.gz")[0])
 			os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") ")
+			#try to kill in the background 5 minutes later, and if that fails, we will kill it in the end step
 			os.system("(sleep 300 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") & ")
-			os.system("(sleep 600 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") & ")
+			#os.system("(sleep 600 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") & ")
 			#os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") ")
 
 
+#end cleanup to remove any potential dangling empty uncompressed condensed_params_and_db_(0-9) directories
+for i in range(0,10):
+
+	cur_folder = "condensed_params_and_db_" + str(i)
+
+	while os.path.isdir(cur_folder):
+
+		os.system("rm -drf " + cur_folder)
+
+		#sleep 20 seconds before trying again or moving on
+		os.system("sleep 20")
 
 
 
