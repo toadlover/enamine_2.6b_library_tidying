@@ -80,6 +80,21 @@ for r,d,f in os.walk(working_chunk_location):
 
 			print("working in: " + str(os.getcwd()))
 
+			#bsub job throttle to make sure we do not exceed our local limit
+			#write the length of the bjobs queue to this current location
+			os.system("bjobs | wc -l > bjobs_length.txt")
+			job_count = 0
+			with open("bjobs_length.txt") as f:
+				job_count = int(f.read().strip())
+			while job_count > 20:
+				#sleep for 1 second to not overburden the system
+				os.system("sleep 1")
+				os.system("bjobs | wc -l > bjobs_length.txt")
+				with open("bjobs_length.txt") as f:
+					job_count = int(f.read().strip())
+			#remove the length file to avoid clutter
+			os.system("rm bjobs_length.txt")
+
 			#cut things off here and prepare to run this in a bsub job in parallel for cleanup_chunk_sub.py
 			os.system("bsub -q long -W 8:00 \"python /pi/summer.thyme-umw/ari_enamine_conformer_library_tidying/enamine_2.6b_library_tidying/cleanup_chunk_sub.py " + working_chunk + " " +  dire + " \"")
 
