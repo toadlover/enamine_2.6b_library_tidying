@@ -134,6 +134,8 @@ for r2,d2,f2 in os.walk(os.getcwd()):
 			#delete the decompressed file
 			os.system("rm " + file.split(".tar.gz")[0])
 
+print(blacklist_ligand_names)
+
 #iterate over all condensed_params_and_db_*.tar.gz files to remove blacklisted ligands from the library
 for r2,d2,f2 in os.walk(os.getcwd()):
 	for file in f2:
