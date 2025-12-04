@@ -33,7 +33,7 @@ if chunk_id_valid == False:
 print("Working on chunk: " + str(working_chunk))
 
 #move to the chunk
-os.chdir("/pi/summer.thyme-umw/ari_enamine_conformer_library_tidying/conformer_library_space/" + working_chunk)
+os.chdir("/pi/summer.thyme-umw/enamine-REAL-2.6billion/" + working_chunk)
 
 #save the working chunk location
 working_chunk_location = os.getcwd()
