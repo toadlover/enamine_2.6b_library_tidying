@@ -81,7 +81,7 @@ for r,d,f in os.walk(working_chunk_location):
 			print("working in: " + str(os.getcwd()))
 
 			#cut things off here and prepare to run this in a bsub job in parallel for cleanup_chunk_sub.py
-			os.system("bsub -q long -W 8:00 \"python " + starting_location + "/cleanup_chunk_sub.py " + working_chunk + " " +  dire + " \"")
+			os.system("bsub -q long -W 8:00 \"python /pi/summer.thyme-umw/ari_enamine_conformer_library_tidying/enamine_2.6b_library_tidying/cleanup_chunk_sub.py " + working_chunk + " " +  dire + " \"")
 
 			#return to the top at end
 			os.chdir(working_chunk_location)
