@@ -186,7 +186,11 @@ for i in range(0,10):
 
 	cur_folder = "condensed_params_and_db_" + str(i)
 
+	print("condensed_params_and_db_" + str(i))
+
 	while os.path.isdir(cur_folder):
+
+		print("attempting to delete")
 
 		os.system("rm -drf " + cur_folder)
 
