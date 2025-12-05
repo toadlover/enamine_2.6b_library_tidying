@@ -187,7 +187,7 @@ for r2,d2,f2 in os.walk(os.getcwd()):
 			#os.system("(sleep 600 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") & ")
 			#os.system("(sleep 60 && rm -drf " + r2 + "/" + file.split(".tar.gz")[0] + ") ")
 
-
+"""
 #end cleanup to remove any potential dangling empty uncompressed condensed_params_and_db_(0-9) directories
 for i in range(0,10):
 
@@ -203,7 +203,7 @@ for i in range(0,10):
 
 		#sleep 2 seconds before trying again or moving on
 		os.system("sleep 2")
-
+"""
 
 
 
