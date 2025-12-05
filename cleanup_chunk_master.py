@@ -86,7 +86,7 @@ for r,d,f in os.walk(working_chunk_location):
 			job_count = 0
 			with open("bjobs_length.txt") as f:
 				job_count = int(f.read().strip())
-			while job_count > 50:
+			while job_count > 150:
 				#sleep for 1 second to not overburden the system
 				os.system("sleep 1")
 				os.system("bjobs | wc -l > bjobs_length.txt")
