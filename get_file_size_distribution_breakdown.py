@@ -41,4 +41,4 @@ for i in range(0,531):
 		print("On superchunk: " + str(i))
 		logical_total, disk_total = directory_sizes_with_pattern(root = str(i), pattern = "condensed_params*.tar.gz")
 		size_breakdown_file.write(str(i) + "," + str(logical_total) + "," + str(disk_total) + "\n")
-		print(str(i) + "," + str(logical_total) + "," + disk_total + "\n")
+		print(str(i) + "," + str(logical_total) + "," + str(disk_total) + "\n")
